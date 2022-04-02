@@ -11,7 +11,7 @@ for (let i = 0; i < 10; i++) {
   data.push("Ayush" + i);
 }
 
-const LeftContainer = () => {
+const LeftContainer = ({ showChat }: any) => {
   return (
     <View style={{ flex: 1, gap: 10 }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
@@ -19,13 +19,13 @@ const LeftContainer = () => {
         <Text style={{ fontWeight: 700 }}>QuickChat</Text>
       </View>
       <UserCard />
-      <Collapse title="Active Conversations" count={4}>
+      <Collapse openAtMount title="Active Conversations" count={4}>
         <ScrollView
           contentContainerStyle={{ gap: 10 }}
           style={{ maxHeight: 200 }}
         >
           {data.map((item, index) => {
-            return <Item active={index === 0} />;
+            return <Item onClick={showChat} active={index === 0} />;
           })}
         </ScrollView>
       </Collapse>
@@ -35,7 +35,7 @@ const LeftContainer = () => {
           style={{ maxHeight: 200 }}
         >
           {data.map((item) => {
-            return <Item />;
+            return <Item onClick={showChat} />;
           })}
         </ScrollView>
       </Collapse>

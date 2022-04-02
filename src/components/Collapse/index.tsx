@@ -6,9 +6,10 @@ import styles from "./index.style";
 interface CollapseProps {
   title: string;
   count?: number;
+  openAtMount?: boolean
 }
 
-const Collapse: React.FC<CollapseProps> = ({ children, title, count }) => {
+const Collapse: React.FC<CollapseProps> = ({ children, title, count, openAtMount }) => {
   const [visible, setVisible] = useState(false);
 
   const outerRef: any = useRef();
@@ -16,19 +17,23 @@ const Collapse: React.FC<CollapseProps> = ({ children, title, count }) => {
 
   let height = 0;
 
-  if (outerRef?.current && outerRef.current.clientHeight) {
+  if (visible) {
+    if (innerRef?.current) {
+      height = innerRef.current.clientHeight;
+    }
+  } else {
     height = 0;
-  } else if (innerRef?.current) {
-    height = innerRef.current.clientHeight;
   }
-
-  useEffect(() => {
-    // setVisible(true);
-  }, []);
 
   const ArrowComponent = visible ? FaAngleUp : FaAngleDown;
 
   const countText = count && (count > 9 ? `9+` : `${count}`);
+
+  useEffect(()=>{
+    if(openAtMount){
+      setVisible(true)
+    }
+  },[])
 
   return (
     <View>

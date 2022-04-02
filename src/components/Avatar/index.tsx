@@ -6,10 +6,12 @@ interface AvatarProps {
   size?: number;
   image?: string;
   text?: string;
+  onClick?: any;
 }
-const Avatar: FC<AvatarProps> = ({ size = 40, image, text }) => {
+const Avatar: FC<AvatarProps> = ({ size = 40, image, text, onClick }) => {
   return (
     <View
+      onClick={onClick}
       style={{
         width: size,
         height: size,

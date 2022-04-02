@@ -1,30 +1,86 @@
 import View from "../components/View";
-import ContainerOne from "./LeftContainer";
-import ContainerTwo from "./RightContainer";
+import { IoIosArrowBack } from "react-icons/io";
+import LeftContainer from "./LeftContainer";
+import RightContainer from "./RightContainer";
 import "./index.css";
 import MiddleContainer from "./MiddleContainer";
+import useWindowSize from "../utils/useWindowSize";
+import { useState } from "react";
+import Text from "../components/Text";
 
 const MainView = () => {
+  const { width } = useWindowSize();
+  const [chatVisible, setChatVisible] = useState(false);
+  const [detailVisible, setDetailVisible] = useState(false);
+
+  const showChat = () => {
+    setChatVisible(true);
+  };
+
+  const showDetail = () => {
+    setDetailVisible(true);
+  };
+
+  const goBack = () => {
+    if (detailVisible) {
+      setDetailVisible(false);
+    } else if (chatVisible) {
+      setChatVisible(false);
+    }
+  };
+
   return (
     <View
       className="container"
       style={{
         flex: 1,
-        flexDirection: "row",
-        padding: 20,
+        padding: width < 900 ? 8 : 20,
         borderRadius: 18,
         backgroundColor: "#ffffff",
-        gap: 28,
       }}
     >
-      <View style={{ flex: 1, backgroundColor: "transparent" }}>
-        <ContainerOne />
-      </View>
-      <View style={{ flex: 2, backgroundColor: "#f3f6fb", borderRadius: 16 }}>
-        <MiddleContainer />
-      </View>
-      <View style={{ flex: 1, backgroundColor: "transparent" }}>
-        <ContainerTwo />
+      {width <= 900 && (detailVisible || chatVisible) && (
+        <View
+          style={{
+            marginBottom: 8,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <View
+            onClick={goBack}
+            style={{ width: 32, height: 32, cursor: "pointer" }}
+          >
+            <IoIosArrowBack size={32} />
+          </View>
+          <Text style={{ fontWeight: 700, fontSize: 18 }}>
+            {detailVisible ? "User Detail" : chatVisible ? "Chat" : ""}
+          </Text>
+        </View>
+      )}
+      <View style={{ flexDirection: "row", gap: 28 }}>
+        {(width > 900 || !chatVisible) && (
+          <View style={{ flex: 1, backgroundColor: "transparent" }}>
+            <LeftContainer showChat={showChat} />
+          </View>
+        )}
+        {(width > 900 || (!detailVisible && chatVisible)) && (
+          <View
+            style={{
+              flex: width > 900 ? 2 : 1,
+              backgroundColor: "#f3f6fb",
+              borderRadius: 16,
+              position: "relative",
+            }}
+          >
+            <MiddleContainer showDetail={showDetail} />
+          </View>
+        )}
+        {(width > 900 || detailVisible) && (
+          <View style={{ flex: 1, backgroundColor: "transparent" }}>
+            <RightContainer />
+          </View>
+        )}
       </View>
     </View>
   );

@@ -16,7 +16,7 @@ const currentUserColors = {
   text: "#c5c7ce",
 };
 
-const ChatCard = ({ me }: any) => {
+const ChatCard = ({ me, showDetail }: any) => {
   const colors = me ? currentUserColors : otherUserColors;
 
   return (
@@ -29,7 +29,7 @@ const ChatCard = ({ me }: any) => {
           padding: 2,
         }}
       >
-        <Avatar size={50} image={UserPhoto} />
+        <Avatar onClick={showDetail} size={50} image={UserPhoto} />
         <View style={{ flex: 1, overflow: void 0, gap: 4 }}>
           <View
             style={{
@@ -55,27 +55,26 @@ const ChatCard = ({ me }: any) => {
   );
 };
 
-const ChatScreen = () => {
+const ChatScreen = ({showDetail}: any) => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{ gap: 12, paddingBottom: 20, paddingTop: 20 }}
         style={{ flex: 1, paddingRight: 20 }}
       >
-        <ChatCard me />
-        <ChatCard />
-        <ChatCard me />
-        <ChatCard />
-        <ChatCard me />
-        <ChatCard />
-        <ChatCard me />
-        <ChatCard />
-        <ChatCard me />
-        <ChatCard />
-        <ChatCard me />
-        <ChatCard />
-        <ChatCard me />
-        <ChatCard />
+        <ChatCard me showDetail={showDetail} />
+        <ChatCard showDetail={showDetail} />
+        <ChatCard me showDetail={showDetail} />
+        <ChatCard showDetail={showDetail} />
+        <ChatCard me showDetail={showDetail} />
+        <ChatCard showDetail={showDetail} />
+        <ChatCard me showDetail={showDetail} />
+        <ChatCard showDetail={showDetail} />
+        <ChatCard me showDetail={showDetail} />
+        <ChatCard showDetail={showDetail} />
+        <ChatCard me showDetail={showDetail} />
+        <ChatCard showDetail={showDetail} />
+
       </ScrollView>
     </View>
   );

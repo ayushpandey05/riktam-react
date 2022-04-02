@@ -2,7 +2,7 @@ import View from "../../components/View";
 import ChatInput from "./ChatInput";
 import ChatScreen from "./ChatScreen";
 
-const MiddleContainer = () => {
+const MiddleContainer = ({showDetail}: any) => {
   return (
     <View
       style={{
@@ -13,7 +13,7 @@ const MiddleContainer = () => {
         flex: 1
       }}
     >
-      <ChatScreen />
+      <ChatScreen showDetail={showDetail} />
       <ChatInput />
     </View>
   );

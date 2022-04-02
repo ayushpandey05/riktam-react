@@ -3,9 +3,10 @@ import Avatar from "../../components/Avatar";
 import Text from "../../components/Text";
 import View from "../../components/View";
 
-const Item = ({ active }: any) => {
+const Item = ({ active, onClick }: any) => {
   return (
     <View
+    onClick={onClick}
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -15,6 +16,7 @@ const Item = ({ active }: any) => {
         paddingRight: 16,
         paddingTop: 8,
         paddingBottom: 8,
+        cursor: 'pointer'
       }}
     >
       <View
