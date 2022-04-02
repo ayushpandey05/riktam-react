@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import View from "./components/View";
+import ScrollView from "./components/ScrollView";
+import Collapse from "./components/Collapse";
+import MainView from "./views";
+
+export const tempText = `Here is some more text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae urna nulla. Vivamus a purus mi. In hac habitasse platea dictumst. In ac tempor quam. Vestibulum eleifend vehicula ligula, et cursus nisl gravida sit
+amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <View style={{ backgroundColor: "#f7f9fc", flex: 1, padding: 40 }} className="App">
+        <MainView />
+      {/* <ScrollView style={{ flex: 1 }}>
+      <Collapse title="Active Conversations" count={44} >{tempText}</Collapse>
+      </ScrollView> */}
+    </View>
   );
 }
 
