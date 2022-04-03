@@ -5,29 +5,41 @@ import RightContainer from "./RightContainer";
 import "./index.css";
 import MiddleContainer from "./MiddleContainer";
 import useWindowSize from "../utils/useWindowSize";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Text from "../components/Text";
 
 const MainView = () => {
   const { width } = useWindowSize();
+
+  const [receiverId, setReceiverId] = useState(0);
+
   const [chatVisible, setChatVisible] = useState(false);
-  const [detailVisible, setDetailVisible] = useState(false);
+  const [detailVisible, setDetailVisible] = useState(width > 900 ? 1 : 0);
 
   const showChat = () => {
-    setChatVisible(true);
+    if (width <= 900) {
+      setChatVisible(true);
+    }
   };
 
-  const showDetail = () => {
-    setDetailVisible(true);
+  const showDetail = (userId: number) => {
+    console.log('!@#!@#!!>>>>>>', userId)
+    setDetailVisible(userId);
   };
 
   const goBack = () => {
     if (detailVisible) {
-      setDetailVisible(false);
+      setDetailVisible(0);
     } else if (chatVisible) {
       setChatVisible(false);
     }
   };
+
+  useEffect(() => {
+    if (width > 900 && !detailVisible) {
+      setDetailVisible(1);
+    }
+  }, [width]);
 
   return (
     <View
@@ -60,7 +72,11 @@ const MainView = () => {
       )}
       <View style={{ flexDirection: "row", gap: 28, flex: 1 }}>
         <View style={{ flex: 1, backgroundColor: "transparent" }}>
-          <LeftContainer showChat={showChat} />
+          <LeftContainer
+            receiverId={receiverId}
+            setReceiverId={setReceiverId}
+            showChat={showChat}
+          />
         </View>
         {(width > 900 || (!detailVisible && chatVisible)) && (
           <View
@@ -75,7 +91,7 @@ const MainView = () => {
               }),
             }}
           >
-            <MiddleContainer showDetail={showDetail} />
+            <MiddleContainer receiverId={receiverId} showDetail={showDetail} />
           </View>
         )}
         {(width > 900 || detailVisible) && (
@@ -91,7 +107,7 @@ const MainView = () => {
               }),
             }}
           >
-            <RightContainer />
+            <RightContainer userId={detailVisible} />
           </View>
         )}
       </View>

@@ -5,7 +5,7 @@ import { IoTrashBinOutline } from "react-icons/io5";
 import Text from "../../components/Text";
 import View from "../../components/View";
 
-const UserDetailCard = () => {
+const UserDetailCard = ({name, email}: any) => {
   const [isUserActive, setIsUserActive] = useState(false);
 
   return (
@@ -45,7 +45,7 @@ const UserDetailCard = () => {
           <AiOutlineMail size={18} />
         </View>
         <Text numberOfLines={1} style={{ fontWeight: 600 }}>
-          ayushpandey0508@gmail.com
+          {email}
         </Text>
       </View>
       <View
@@ -59,7 +59,7 @@ const UserDetailCard = () => {
         <View style={{ width: 18, height: 18 }}>
           <FaRegUserCircle size={18} />
         </View>
-        <Text style={{ fontSize: 12, numberOfLines: 1 }}>Ayush Pandey</Text>
+        <Text style={{ fontSize: 12, numberOfLines: 1 }}>{name}</Text>
       </View>
       <View
           style={{

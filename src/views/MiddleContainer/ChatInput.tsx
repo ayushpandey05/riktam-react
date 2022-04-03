@@ -3,14 +3,25 @@ import { GrAttachment } from "react-icons/gr";
 import Text from "../../components/Text";
 import View from "../../components/View";
 import { FiSmile } from "react-icons/fi";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-const ChatInput = () => {
+const ChatInput = ({ sendMessage }: any) => {
   const inputRef: any = useRef();
 
   const onClickInput = () => {
     if (inputRef?.current?.focus) {
       inputRef.current.focus();
+    }
+  };
+
+  const [message, setMessage] = useState("");
+
+  const onSend = (e: any) => {
+      e.preventDefault()
+      e.stopPropagation()
+    if (message) {
+      sendMessage(message);
+      setMessage("");
     }
   };
 
@@ -50,6 +61,15 @@ const ChatInput = () => {
       >
         <View style={{ flex: 1 }}>
           <input
+            onKeyPress={(e) => {
+              if (e.code === "Enter") {
+                onSend(e);
+              }
+            }}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+            value={message}
             style={{ color: "#222222" }}
             placeholder="Enter your message here"
             ref={inputRef}
@@ -72,6 +92,7 @@ const ChatInput = () => {
         </View>
       </View>
       <View
+        onClick={onSend}
         style={{
           borderRadius: 8,
           backgroundColor: "#0f4cff",

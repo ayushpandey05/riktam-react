@@ -7,8 +7,9 @@ interface AvatarProps {
   image?: string;
   text?: string;
   onClick?: any;
+  pointer?: boolean
 }
-const Avatar: FC<AvatarProps> = ({ size = 40, image, text, onClick }) => {
+const Avatar: FC<AvatarProps> = ({ size = 40, image, text, onClick, pointer }) => {
   return (
     <View
       onClick={onClick}
@@ -18,6 +19,7 @@ const Avatar: FC<AvatarProps> = ({ size = 40, image, text, onClick }) => {
         borderRadius: size,
         justifyContent: "center",
         alignItems: "center",
+        cursor: pointer? 'pointer' : 'default'
       }}
     >
       {image && (

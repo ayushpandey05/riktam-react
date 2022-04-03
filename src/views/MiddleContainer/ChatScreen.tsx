@@ -1,8 +1,10 @@
+import { useEffect, useRef } from "react";
 import { UserPhoto } from "../../assets/images";
 import Avatar from "../../components/Avatar";
 import ScrollView from "../../components/ScrollView";
 import Text from "../../components/Text";
 import View from "../../components/View";
+import { currentUser, getUserById } from "../../tempData/users";
 
 const textTemp = `Hey Bill, nice to meet you! Hey Bill, nice to meet you! Hey Bill, nice to meet you! Hey Bill, nice to meet you!  Hey Bill, nice to meet you! Hey Bill, nice to meet you!`;
 
@@ -16,7 +18,7 @@ const currentUserColors = {
   text: "#c5c7ce",
 };
 
-const ChatCard = ({ me, showDetail }: any) => {
+const ChatCard = ({ me, showDetail, message, photo }: any) => {
   const colors = me ? currentUserColors : otherUserColors;
 
   return (
@@ -29,7 +31,7 @@ const ChatCard = ({ me, showDetail }: any) => {
           padding: 2,
         }}
       >
-        <Avatar onClick={showDetail} size={50} image={UserPhoto} />
+        <Avatar pointer onClick={showDetail} size={50} image={photo} />
         <View style={{ flex: 1, overflow: void 0, gap: 4 }}>
           <View
             style={{
@@ -44,7 +46,7 @@ const ChatCard = ({ me, showDetail }: any) => {
               overflow: void 0,
             }}
           >
-            <Text style={{ color: colors.text, fontSize: 14 }}>{textTemp}</Text>
+            <Text style={{ color: colors.text, fontSize: 14 }}>{message}</Text>
           </View>
           <Text style={{ fontSize: 10, ...(me && { alignSelf: "flex-end" }) }}>
             9h ago
@@ -55,26 +57,41 @@ const ChatCard = ({ me, showDetail }: any) => {
   );
 };
 
-const ChatScreen = ({showDetail}: any) => {
+const ChatScreen = ({ showDetail, chats }: any) => {
+
+    const bottomRef: any = useRef();
+
+    const scrollToBottom = () => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+      }
+
+    useEffect(scrollToBottom, [chats])
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{ gap: 12, paddingBottom: 20, paddingTop: 20 }}
         style={{ flex: 1, paddingRight: 20 }}
       >
-        <ChatCard me showDetail={showDetail} />
-        <ChatCard showDetail={showDetail} />
-        <ChatCard me showDetail={showDetail} />
-        <ChatCard showDetail={showDetail} />
-        <ChatCard me showDetail={showDetail} />
-        <ChatCard showDetail={showDetail} />
-        <ChatCard me showDetail={showDetail} />
-        <ChatCard showDetail={showDetail} />
-        <ChatCard me showDetail={showDetail} />
-        <ChatCard showDetail={showDetail} />
-        <ChatCard me showDetail={showDetail} />
-        <ChatCard showDetail={showDetail} />
-
+        {chats?.length &&
+          chats.map((item: any) => {
+            const { senderId, receiverId, message } = item || {};
+            const user = getUserById(senderId);
+            const showDetailUser = ()=>{
+                if(typeof showDetail === 'function'){
+                    showDetail(senderId)
+                }
+            }
+            return (
+              <ChatCard
+                message={message}
+                me={senderId === currentUser.id}
+                showDetail={showDetailUser}
+                photo={user.photo}
+              />
+            );
+          })}
+          <div ref={bottomRef} />
       </ScrollView>
     </View>
   );

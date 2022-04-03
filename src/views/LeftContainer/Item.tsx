@@ -3,7 +3,7 @@ import Avatar from "../../components/Avatar";
 import Text from "../../components/Text";
 import View from "../../components/View";
 
-const Item = ({ active, onClick }: any) => {
+const Item = ({ photo, name,active, onClick }: any) => {
   return (
     <View
     onClick={onClick}
@@ -22,8 +22,8 @@ const Item = ({ active, onClick }: any) => {
       <View
         style={{ flexDirection: "row", flex: 1, alignItems: "center", gap: 16 }}
       >
-        <Avatar image={UserPhoto} />
-        <Text style={{ fontWeight: active ? "600" : "400" }}>Ayush Pandey</Text>
+        <Avatar image={photo} />
+        <Text style={{ fontWeight: active ? "600" : "400" }}>{name}</Text>
       </View>
       <View
         style={{
