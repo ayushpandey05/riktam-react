@@ -46,7 +46,7 @@ const MainView = () => {
       className="container"
       style={{
         flex: 1,
-        padding: width < 900 ? 8 : 20,
+        padding: width <= 900 ? 8 : 20,
         borderRadius: 18,
         backgroundColor: "#ffffff",
       }}
@@ -70,7 +70,7 @@ const MainView = () => {
           </Text>
         </View>
       )}
-      <View style={{ flexDirection: "row", gap: 28, flex: 1 }}>
+      <View style={{ flexDirection: "row",  flex: 1, ...(width > 900 && {gap: 28}) }}>
         <View style={{ flex: 1, backgroundColor: "transparent" }}>
           <LeftContainer
             receiverId={receiverId}
