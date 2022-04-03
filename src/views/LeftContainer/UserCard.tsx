@@ -11,6 +11,8 @@ import { currentUser } from "../../tempData/users";
 const UserCard = () => {
   const [isUserActive, setIsUserActive] = useState(false);
 
+  const [menuVisible, setMenuVisible]=useState(false)
+
   return (
     <View
       style={{

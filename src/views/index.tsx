@@ -94,7 +94,7 @@ const MainView = () => {
             <MiddleContainer receiverId={receiverId} showDetail={showDetail} />
           </View>
         )}
-        {(width > 900 || detailVisible) && (
+        {(width > 900 || detailVisible) ? (
           <View
             style={{
               flex: 1,
@@ -109,7 +109,7 @@ const MainView = () => {
           >
             <RightContainer userId={detailVisible} />
           </View>
-        )}
+        ) : void 0}
       </View>
     </View>
   );
