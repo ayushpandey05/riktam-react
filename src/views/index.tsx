@@ -58,26 +58,39 @@ const MainView = () => {
           </Text>
         </View>
       )}
-      <View style={{ flexDirection: "row", gap: 28 }}>
-        {(width > 900 || !chatVisible) && (
-          <View style={{ flex: 1, backgroundColor: "transparent" }}>
-            <LeftContainer showChat={showChat} />
-          </View>
-        )}
+      <View style={{ flexDirection: "row", gap: 28, flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "transparent" }}>
+          <LeftContainer showChat={showChat} />
+        </View>
         {(width > 900 || (!detailVisible && chatVisible)) && (
           <View
             style={{
               flex: width > 900 ? 2 : 1,
               backgroundColor: "#f3f6fb",
               borderRadius: 16,
-              position: "relative",
+              ...(width <= 900 && {
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+              }),
             }}
           >
             <MiddleContainer showDetail={showDetail} />
           </View>
         )}
         {(width > 900 || detailVisible) && (
-          <View style={{ flex: 1, backgroundColor: "transparent" }}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "transparent",
+              ...(width <= 900 && {
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#ffffff",
+              }),
+            }}
+          >
             <RightContainer />
           </View>
         )}

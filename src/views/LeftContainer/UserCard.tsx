@@ -22,10 +22,10 @@ const UserCard = () => {
     >
       <Avatar size={60} image={UserPhoto} />
       <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-        <Text style={{ fontWeight: 600 }}>Ayush Pandey</Text>
+        <Text style={{ fontWeight: 600, textAlign: 'center' }}>Ayush Pandey</Text>
         <AiOutlineSetting />
       </View>
-      <Text style={{ fontSize: 12 }}>React/React Native Developer</Text>
+      <Text style={{ fontSize: 12, textAlign: 'center' }}>React/React Native Developer</Text>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
         <ToggleInput
           value={isUserActive}
